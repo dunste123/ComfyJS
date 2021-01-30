@@ -1,5 +1,5 @@
 {
-  "name": "comfy.js",
+  "name": "@duncte123/comfy.js",
   "version": "1.1.6",
   "description": "Twitch-Integrated Bot Module for Coding Cafe",
   "main": "app.js",
