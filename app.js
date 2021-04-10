@@ -141,6 +141,8 @@ async function pubsubConnect( channel, password ) {
 						let redemption = messageData.data.redemption;
 						// console.log( redemption );
                         var reward = redemption.reward;
+                       reward.image = reward.image || {};
+                       reward.defaultImage = reward.defaultImage || {};
                         var rewardObj = {
                           id: reward.id,
                           channelId: reward.channel_id,
