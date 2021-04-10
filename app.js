@@ -141,8 +141,8 @@ async function pubsubConnect( channel, password ) {
 						let redemption = messageData.data.redemption;
 						// console.log( redemption );
                         var reward = redemption.reward;
-                       reward.image = reward.image || {};
-                       reward.defaultImage = reward.defaultImage || {};
+                        reward.image = reward.image || {};
+                        reward.defaultImage = reward.defaultImage || {};
                         var rewardObj = {
                           id: reward.id,
                           channelId: reward.channel_id,
@@ -542,6 +542,7 @@ var comfyJS = {
         userColor: userstate['color'],
         userBadges: userstate['badges'],
         userState: userstate,
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onSub( username, message, methods, extra );
@@ -558,6 +559,7 @@ var comfyJS = {
         displayName: userstate[ 'display-name' ],
         userColor: userstate['color'],
         userBadges: userstate['badges'],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onResub( username, message, streakMonths, cumulativeMonths, methods, extra );
@@ -577,7 +579,8 @@ var comfyJS = {
         userState: userstate,
         recipientDisplayName: userstate["msg-param-recipient-display-name"],
         recipientUsername: userstate["msg-param-recipient-user-name"],
-        recipientId: userstate["msg-param-recipient-id"]
+        recipientId: userstate["msg-param-recipient-id"],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onSubGift( gifterUser, streakMonths, recipientUser, senderCount, methods, extra );
@@ -599,7 +602,8 @@ var comfyJS = {
         recipientDisplayName: userstate["msg-param-recipient-display-name"],
         recipientUsername: userstate["msg-param-recipient-user-name"],
         recipientId: userstate["msg-param-recipient-id"],
-        userMassGiftCount: ~~userstate[ 'msg-param-mass-gift-count' ]
+        userMassGiftCount: ~~userstate[ 'msg-param-mass-gift-count' ],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onSubMysteryGift( gifterUser, numbOfSubs, senderCount, methods, extra );
@@ -617,7 +621,8 @@ var comfyJS = {
         userBadges: userstate['badges'],
         userState: userstate,
         gifterUsername: userstate['msg-param-sender-login'],
-        gifterDisplayName: userstate['msg-param-sender-name']
+        gifterDisplayName: userstate['msg-param-sender-name'],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onGiftSubContinue( username, sender, extra);

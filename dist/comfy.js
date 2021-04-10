@@ -1,5 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-// Comfy.JS v1.1.8
+// Comfy.JS v1.1.10
 var tmi = require( "tmi.js" );
 var fetch = require( "node-fetch" );
 var NodeSocket = require( "ws" );
@@ -142,8 +142,6 @@ async function pubsubConnect( channel, password ) {
 						let redemption = messageData.data.redemption;
 						// console.log( redemption );
                         var reward = redemption.reward;
-                       reward.image = reward.image || {};
-                       reward.defaultImage = reward.defaultImage || {};
                         var rewardObj = {
                           id: reward.id,
                           channelId: reward.channel_id,
@@ -225,7 +223,7 @@ var comfyJS = {
   isDebug: false,
   chatModes: {},
   version: function() {
-    return "1.1.8";
+    return "1.1.10";
   },
   onError: function( error ) {
     console.error( "Error:", error );
@@ -543,6 +541,7 @@ var comfyJS = {
         userColor: userstate['color'],
         userBadges: userstate['badges'],
         userState: userstate,
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onSub( username, message, methods, extra );
@@ -559,6 +558,7 @@ var comfyJS = {
         displayName: userstate[ 'display-name' ],
         userColor: userstate['color'],
         userBadges: userstate['badges'],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onResub( username, message, streakMonths, cumulativeMonths, methods, extra );
@@ -578,7 +578,8 @@ var comfyJS = {
         userState: userstate,
         recipientDisplayName: userstate["msg-param-recipient-display-name"],
         recipientUsername: userstate["msg-param-recipient-user-name"],
-        recipientId: userstate["msg-param-recipient-id"]
+        recipientId: userstate["msg-param-recipient-id"],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onSubGift( gifterUser, streakMonths, recipientUser, senderCount, methods, extra );
@@ -600,7 +601,8 @@ var comfyJS = {
         recipientDisplayName: userstate["msg-param-recipient-display-name"],
         recipientUsername: userstate["msg-param-recipient-user-name"],
         recipientId: userstate["msg-param-recipient-id"],
-        userMassGiftCount: ~~userstate[ 'msg-param-mass-gift-count' ]
+        userMassGiftCount: ~~userstate[ 'msg-param-mass-gift-count' ],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onSubMysteryGift( gifterUser, numbOfSubs, senderCount, methods, extra );
@@ -618,7 +620,8 @@ var comfyJS = {
         userBadges: userstate['badges'],
         userState: userstate,
         gifterUsername: userstate['msg-param-sender-login'],
-        gifterDisplayName: userstate['msg-param-sender-name']
+        gifterDisplayName: userstate['msg-param-sender-name'],
+        channel: channel.replace('#', ''),
       };
 
       comfyJS.onGiftSubContinue( username, sender, extra);
@@ -755,7 +758,6 @@ if (typeof window !== "undefined") {
     window.ComfyJS = comfyJS;
     tmi = window.tmi;
 }
-
 },{"node-fetch":2,"tmi.js":4,"ws":3}],2:[function(require,module,exports){
 (function (global){
 "use strict";
